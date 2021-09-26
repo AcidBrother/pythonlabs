@@ -1,3 +1,4 @@
+#7.1
 n=int(input())
 t = True
 for i in range(0,n):
