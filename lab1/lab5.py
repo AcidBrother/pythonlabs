@@ -95,7 +95,7 @@ while a!=0:
         a-=c
         print(c,' ',a)
 '''
-
+'''
 #5.6
 a=int(input())
 b=int(input())
@@ -112,3 +112,4 @@ while ((a!=0) or (b!=0) or (c!=0)):
     elif i==3 and not(c-n<0) and not(n<0):
         c-=n
         print(a,' ',b,' ',c)
+'''
