@@ -80,11 +80,63 @@ while a%10==0:
     if a%10!=0:
         break
 '''
-'''
+
 #4.7
 x = int(input())
 y = int(input())
-'''
+i=j=l=k=0
+m=0
+t=True
+N=["север","восток","юг","запад"]
+n="север"
+a=''
+while a!="стоп":
+    a=input()
+    if a=="вперёд":
+        b=int(input())
+        if m==0:
+            j+=b
+            l+=1
+        elif m==1:
+            i+=b
+            l+=1
+        elif m==2:
+            j-=b
+            l+=1
+        elif m==3:
+            i-=b
+            l+=1
+    elif a=="налево":
+        m-=1
+        if m<0:
+            m=3
+            l+=1
+    elif a=="направо":
+        m+=1
+        if m>3:
+            m=0
+            l+=1
+    elif a=="разворот":
+        if m==0:
+            m=2
+            l+=1
+        elif m==2:
+            m=0
+            l+=1
+        elif m==1:
+            m==3
+            l+=1
+        elif m==3:
+            m==1
+            l+=1
+    if j==y and i==x and t:
+        t=False
+        n=N[m]
+        k=l
+print('')
+print(k)
+print(n)
+
 '''
 #4.8
 a=1

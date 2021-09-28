@@ -113,3 +113,107 @@ while ((a!=0) or (b!=0) or (c!=0)):
         c-=n
         print(a,' ',b,' ',c)
 '''
+'''
+#5.7
+import random
+a=int(input())
+b=int(input())
+n=0
+while a!=0 or b!=0:
+    if (a and b)!=0:
+        i=random.randint(1, 2)
+        if i==1:
+            if a%2==0:
+                a//=2
+            else:
+                a-=1
+        else:
+            if b%2==0:
+                b//=2
+            else:
+                b-=1
+    elif a==0:
+        b-=b
+        print("You lose")
+        break
+    elif b==0:
+        a-=a
+        print("You lose")
+        break
+    print(a,' ', b)
+    i=int(input())
+    if i==1:
+        while not(0<n and n<=a):
+            n=int(input())
+        a-=n
+        if a==0 and b==0:
+            print("You win")
+            break
+    elif i==2:
+        while not(0<n and n<=b):
+            n=int(input())
+        b-=n
+        if a==0 and b==0:
+            print("You win")
+            break
+'''
+
+#5.8
+import random
+a=int(input())
+b=int(input())
+c=int(input())
+n=0
+while a!=0 or b!=0 or c!=0:
+    if (a and b and c)!=0:
+        i=random.randint(1, 3)
+        if i==1:
+            if a%2==0:
+                a//=2
+            else:
+                a-=1
+        elif i==2:
+            if b%2==0:
+                b//=2
+            else:
+                b-=1
+        elif i==3:
+            if c%2==0:
+                c//=2
+            else:
+                c-=1
+    elif a==0 and c==0:
+        b-=b
+        print("You lose")
+        break
+    elif b==0 and c==0:
+        a-=a
+        print("You lose")
+        break
+    elif b==0 and a==0:
+        c-=c
+        print("You lose")
+        break
+    print(a,' ', b,' ',c)
+    i=int(input())
+    if i==1:
+        while not(0<n and n<=a):
+            n=int(input())
+        a-=n
+        if a==0 and b==0 and c==0:
+            print("You win")
+            break
+    elif i==2:
+        while not(0<n and n<=b):
+            n=int(input())
+        b-=n
+        if a==0 and b==0 and c==0:
+            print("You win")
+            break
+    elif i==3:
+        while not(0<n and n<=c):
+            n=int(input())
+        c-=n
+        if a==0 and b==0 and c==0:
+            print("You win")
+            break

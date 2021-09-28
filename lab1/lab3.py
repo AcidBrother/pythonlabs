@@ -47,9 +47,7 @@ elif a%2!=0:
 '''
 #3.5
 a = input()
-b = len(a)
-b = b*2 +3
-print(b)
+print(len(a)*2+3)
 '''
 
 '''
