@@ -45,8 +45,42 @@ for i in range(0,n):
         else:
             print('0')
 '''
+'''
+#6.5
+n=int(input())
+s=0
+for i in range(0,n):
+    a=int(input())
+    b=int(input())
+    s=s+a/b
 
+num=0
+k =  1
 
+for i in range(int(input())):
+
+   a, b = int(input()), int(input())
+
+   num = num * b + a * k
+
+   k *= b
+
+x, y = num, k
+
+while y > 0:
+
+   x, y = y, x % y
+
+print(num // x, '/', k // x)
+'''
+#6.6
+n = int(input())
+a = 0
+p = 3.141592653589793
+for i in range(0,n):
+    a=a+(1/((i+1) ** 2))
+print((p**2)/a)
+'''
 #6.7
 n=int(input())
 s=0
@@ -58,3 +92,4 @@ if n>0:
         else:
             s+=a
     print(s)
+'''

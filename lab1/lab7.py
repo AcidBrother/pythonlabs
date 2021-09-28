@@ -83,6 +83,38 @@ if t:
 else:
     print(d,' ',c)
 '''
+#4.7
+x = int(input())
+y = int(input())
+i=j=l=k=0
+m=0
+t=True
+N=["север","восток","юг","запад"]
+n="север"
+a=''
+while a!="стоп":
+    a=input()
+    if a=="юг":
+        b=int(input())
+        j-=b
+        l+=1
+    elif a=="север":
+        b=int(input())
+        j+=b
+        l+=1
+    elif a=="запад":
+        b=int(input())
+        i-=b
+        l+=1
+    elif a=="восток":
+        b=int(input())
+        i+=b
+        l+=1
+    if j==y and i==x and t:
+        t=False
+        k=l
+print('')
+print(k)
 '''
 #7.7
 n=int(input())
@@ -127,7 +159,7 @@ while n>0:
             print("На сегодня хватит.")
             break
 '''
-
+'''
 #7.9
 a=''
 list=[]
@@ -180,3 +212,4 @@ while a!='x':
             list.append(str(n))
             t=False
             i+=1
+'''
