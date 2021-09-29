@@ -83,6 +83,7 @@ if t:
 else:
     print(d,' ',c)
 '''
+'''
 #4.7
 x = int(input())
 y = int(input())
@@ -115,6 +116,7 @@ while a!="стоп":
         k=l
 print('')
 print(k)
+'''
 '''
 #7.7
 n=int(input())
@@ -213,3 +215,20 @@ while a!='x':
             t=False
             i+=1
 '''
+#7.10
+n=-1
+a=int(input())
+buy=sell=0
+t=j=True
+while n!=0:
+    n=int(input())
+    if n>a and t and j:
+        buy=n
+        t=False
+    if n<a and not(t) and j:
+        sell=n
+        j=False
+    a=n
+print("\n")
+print("================")
+print("Купили:",buy," Продали:",sell," Разница:",sell-buy)
