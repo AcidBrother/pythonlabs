@@ -1,5 +1,6 @@
 
 from __future__ import print_function
+from pprint import pprint
 
 print("")
 print("⣿⣿⣿⣿⣿⣿⠏⠌⣾⣿⣿")
@@ -91,6 +92,7 @@ elif (i==2):
     print("Leadership= ",n2.Leadership,'\n')
     print("Armour Save= ",n2.Armour_Save,'\n')
     print("Abilites= ",n2.Abilites,'\n')
-
-print(n1.Battlefield_role)
+print("!!!!!!!")
+pprint(vars(n1))
+print("!!!")
 print(n2.Name)
