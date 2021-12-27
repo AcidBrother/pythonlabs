@@ -1,27 +1,6 @@
-
 from __future__ import print_function
 from pprint import pprint
 
-print("")
-print("⣿⣿⣿⣿⣿⣿⠏⠌⣾⣿⣿")
-print("⣿⣿⣿⣿⣿⠀⠀⠸⠿⣿⣿⣿")
-print("⣿⣿⣿⣿⠃⠀⣠⣾⣿⣿⣿")
-print("⣿⣿⡿⠃⠀⢰⣿⣿⣿⣿⣿⣿⣿⣿⣿")
-print("⣿⣿⠃⠀⠀⣾⣿⣿⣿⣿⣿⣦⠀⠈⠻⣿⣿⣿")
-print("⣿⣿⠀⠀⠀⣿⣿⣿⠟⠉⠉⠉⢃⣤⠀⠈⢿⣿⣿⣿")
-print("⣿⣿⠀⠀⠀⢸⣿⡟⠀⠀⠀⠀⢹⣿⣧⠀⠀⠙⣿⣿")
-print("⣿⣿⡆⠀⠀⠈⠻⡅⠀⠀⠀⠀⣸⣿⠿⠇⠀⠀⢸⣿")
-print("⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠔⠛⠁⠀⠀⠀⣠⣿⣿")
-print("⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿")
-print("⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿")
-print("⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⣠⣿")
-print("⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⢰⣿")
-print("⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿")
-print("⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠘⣿⣿")
-print("⣿⣿⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿")
-print("⣿⣿⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿")
-print("⣿⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿")
-print("")
 class Datasheet_Profiles:
     def __init__(self,Profiles_Battlefield_role,Profiles_Name,Profiles_Movement,Profiles_Weapon_Skill,Profiles_Ballistic_Skill,Profiles_Strength,Profiles_Toughness, Profiles_Wounds, Profiles_Attacks, Profiles_Leadership,Profiles_Armour_Save,Profiles_Abilites):
             self.Battlefield_role = Profiles_Battlefield_role
@@ -50,20 +29,7 @@ class Datasheet_Weapons:
 n1=Datasheet_Profiles("troops","NECRON WARRIORS","5''",3,3,4,4,1,1,10,4,"none")
 n2=Datasheet_Profiles("troops","Cadian Shock Troops","6''",4,4,3,3,1,1,6,5,"-")
 
-'''
-n1.Profiles_Name="NECRON WARRIORS"
-n1.Profiles_Movement="5''"
-n1.Profiles_Weapon_Skill=3
-n1.Profiles_Ballistic_Skill=3
-n1.Profiles_Strength=4
-n1.Profiles_Toughness=4
-n1.Profiles_Wounds=1
-n1.Profiles_Attacks=1
-n1.Profiles_Leadership=10
-n1.Profiles_Armour_Save=4
-'''
-
-print("Выберете число от 1 до 2")
+'''print("Выберете число от 1 до 2")
 i = int(input())
 print('\n')
 if i == 1:
@@ -96,3 +62,4 @@ print("!!!!!!!")
 pprint(vars(n1))
 print("!!!")
 print(n2.Name)
+'''

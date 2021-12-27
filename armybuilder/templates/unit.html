@@ -1,0 +1,36 @@
+<!doctype html>
+<title>Характеристики юнита</title>
+{% if n %}
+<h2>Характеристики {{ n.Name }}</h2>
+{% else %}
+<h2>Характеристики юнита</h2>
+{% endif %}
+<table>
+  <tr>
+    <th>Роль</th>
+    <th>Имя</th>
+    <th>Скорость</th>
+    <th>WS</th>
+    <th>BS</th>
+    <th>S</th>
+    <th>T</th>
+    <th>W</th>
+    <th>A</th>
+    <th>Ld</th>
+    <th>Sv</th>
+  </tr>
+  <tr>
+    <td>{{n.Battlefield_role}}</td>
+    <td>{{n.Name}}</td>
+    <td>{{n.Movement}}</td>
+    <td>{{n.Weapon_Skill}}</td>
+    <td>{{n.Ballistic_Skill}}</td>
+    <td>{{n.Strength}}</td>
+    <td>{{n.Toughness}}</td>
+    <td>{{n.Wounds}}</td>
+    <td>{{n.Attacks}}</td>
+    <td>{{n.Leadership}}</td>
+    <td>{{n.Armour_Save}}</td>
+    <td>{{n.Abilites}}</td>
+  </tr>
+</table>
