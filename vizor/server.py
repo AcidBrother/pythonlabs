@@ -84,6 +84,33 @@ def db_helpers_select_all():
     slog = "Selected all " + " helper"
     return db_call_select(s,slog)
 
+
+
+def db_device_select_by_id(device_id):
+    s = '''SELECT * FROM device WHERE device_id =''' +  device_id
+    slog = "Selected by" + device_id + " device"
+    return db_call_select(s,slog)
+
+def db_device_delete_by_id(device_id):
+    s = '''DELETE FROM device WHERE device_id =''' +  device_id
+    slog = "Deleted by" + device_id + " device"
+    return db_call(s,slog)
+
+def db_device_select_all():
+    s = '''SELECT * FROM device '''
+    slog = "Selected all " + " device"
+    return db_call_select(s,slog)
+
+def db_device_add(device_name, os_version, app_version):
+    s = '''INSERT OR IGNORE INTO device (device_name, os_version, app_version) VALUES ("'''  + device_name +'''","''' + os_version + '''",''' + app_version + ''')'''
+    slog = "Added " + device_name + " " + os_version + " " + app_version + "to device"
+    db_call(s, slog)
+
+def db_device_update(device_id, device_name, os_version, app_version):
+    s = '''UPDATE device SET device_name= "'''+device_name+'''" , os_version= "'''+os_version+'''" , app_version= '''+app_version+ ''' WHERE device_id= '''+device_id
+    slog = "Updated "+ device_id + " " + device_name + " " + os_version + " " + app_version + "to device"
+    db_call(s, slog)
+
 def db_call(s,slog):
     con = sqlite3.connect('test.db')
     cur = con.cursor()
@@ -139,6 +166,7 @@ def hanlder_db_users_get_by_id():
     req_is_ok = False
     if (request.method == 'GET'):
         arg_id  = request.args.get('id')
+
         if not(arg_id is None):
             req_is_ok = True
         if req_is_ok:
@@ -219,5 +247,60 @@ def hanlder_db_helpers_get_all():
         res = db_helpers_select_all()
         print(res)
         return jsonify(res)
+    else:
+        return "Incorrect request", 400
+
+
+#Почистить. Всё по CRUD
+
+
+
+
+@app.route('/db/device/<device_id>', methods = ['GET'])
+def hanlder_db_device_get(device_id):
+    res = db_device_select_by_id(device_id)
+    print(res)
+    return jsonify(res)
+
+@app.route('/db/device/<device_id>', methods = ['DELETE'])
+def hanlder_db_device_delete_by_id(device_id):
+    res = db_device_delete_by_id(device_id)
+    print(res)
+    return jsonify(res)
+
+@app.route('/db/device/<device_id>', methods = ['PUT'])
+def hanlder_db_device_put(device_id):
+    req_is_ok = False
+    arg_device_name  = request.args.get('device_name')
+    arg_os_version = request.args.get('os_version')
+    arg_app_version = request.args.get('app_version')
+    if not((arg_device_name is None) or (arg_os_version is None) or (arg_app_version is None)):
+        req_is_ok = True
+    if req_is_ok:
+        db_device_update(device_id, arg_device_name, arg_os_version, arg_app_version)
+        resp = jsonify(success=True)
+        return resp
+    else:
+        return "Incorrect request", 400
+
+@app.route('/db/devices', methods = ['GET'])
+def hanlder_db_device_get_all():
+    res = db_device_select_all()
+    print(res)
+    return jsonify(res)
+
+
+@app.route('/db/device', methods = ['POST'])
+def hanlder_db_device_post():
+    req_is_ok = False
+    arg_device_name  = request.args.get('device_name')
+    arg_os_version = request.args.get('os_version')
+    arg_app_version = request.args.get('app_version')
+    if not((arg_device_name is None) or (arg_os_version is None) or (arg_app_version is None)):
+        req_is_ok = True
+    if req_is_ok:
+        db_device_add(arg_device_name, arg_os_version, arg_app_version)
+        resp = jsonify(success=True)
+        return resp
     else:
         return "Incorrect request", 400
