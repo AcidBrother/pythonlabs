@@ -5,6 +5,7 @@ let
     pandas
     requests
     flask
+    flask-cors
  # other python packages you want
   ]);
 in

@@ -4,12 +4,14 @@ from flask import Flask
 from flask import render_template
 from flask import jsonify
 from flask import request
+from flask_cors import CORS
 
 import sqlite3
 
 #export FLASK_APP=server
 
 app = Flask(__name__)
+CORS(app)
 
 print("")
 print("⣿⣿⣿⣿⣿⣿⠏⠌⣾⣿⣿")
@@ -65,22 +67,22 @@ def db_helpers_create():
     db_call_select(s, slog)
 
 def db_helpers_add(name, login, user_id):
-    s = '''INSERT OR IGNORE INTO helpers (name, login, user_id) VALUES ("'''  + name +'''","''' + login + '''",''' + user_id + ''')'''
-    slog = "Added " + name + " " + login + " " + user_id + "to helpers"
+    s = '''INSERT OR IGNORE INTO helper (name, login, user_id) VALUES ("'''  + name +'''","''' + login + '''",''' + user_id + ''')'''
+    slog = "Added " + name + " " + login + " " + user_id + "to helper"
     db_call(s, slog)
 
-def db_helpers_select_by_id(rowid):
-    s = '''SELECT * FROM helpers WHERE ROWID =''' +  rowid
-    slog = "Selected " + rowid + " helper"
+def db_helper_select_by_id(helper_id):
+    s = '''SELECT * FROM helper WHERE ROWID =''' +  helper_id
+    slog = "Selected " + helper_id + " helper"
     return db_call_select(s,slog)
 
 def db_helpers_select_by_user_id(user_id):
-    s = '''SELECT * FROM helpers WHERE user_id =''' +  user_id
+    s = '''SELECT * FROM helper WHERE user_id =''' +  user_id
     slog = "Selected by" + user_id + " helper"
     return db_call_select(s,slog)
 
 def db_helpers_select_all():
-    s = '''SELECT * FROM helpers '''
+    s = '''SELECT * FROM helper '''
     slog = "Selected all " + " helper"
     return db_call_select(s,slog)
 
@@ -210,45 +212,24 @@ def hanlder_db_helpers_insert():
         return "Incorrect request", 400
 
 
-@app.route('/db/helpers/get', methods = ['GET','POST'])
-def hanlder_db_helpers_get_by_id():
-    req_is_ok = False
-    if (request.method == 'GET'):
-        arg_id  = request.args.get('id')
-        if not(arg_id is None):
-            req_is_ok = True
-        if req_is_ok:
-            res = db_helpers_select_by_id(arg_id)
-            print(res)
-            return jsonify(res)
-        else:
-            return "Incorrect request", 400
+@app.route('/db/helper/<helper_id>', methods = ['GET'])
+def hanlder_db_helper_get_by_id(helper_id):
+    reslist = db_helper_select_by_id(helper_id)
+    res = reslist[0]
+    print(res)
+    return jsonify(helper_id = res[0],helper_name = res[1],helper_login = res[2],user_id = res[3],device_id = res[4])
 
-@app.route('/db/helpers/getbyuser', methods = ['GET','POST'])
+@app.route('/db/helpers/getbyuser', methods = ['GET'])
 def hanlder_db_helpers_get_by_user_id():
-    req_is_ok = False
-    if (request.method == 'GET'):
-        arg_user_id  = request.args.get('user_id')
-        if not(arg_user_id is None):
-            req_is_ok = True
-        if req_is_ok:
-            res = db_helpers_select_by_user_id(arg_user_id)
-            print(res)
-            return jsonify(res)
-        else:
-            return "Incorrect request", 400
+    res = db_helpers_select_by_user_id(arg_user_id)
+    print(res)
+    return jsonify(res)
 
-@app.route('/db/helpers/getall', methods = ['GET','POST'])
+@app.route('/db/helpers/getall', methods = ['GET'])
 def hanlder_db_helpers_get_all():
-    req_is_ok = False
-    if (request.method == 'GET'):
-        req_is_ok = True
-    if req_is_ok:
-        res = db_helpers_select_all()
-        print(res)
-        return jsonify(res)
-    else:
-        return "Incorrect request", 400
+    res = db_helpers_select_all()
+    print(res)
+    return jsonify(res)
 
 
 #Почистить. Всё по CRUD
@@ -258,9 +239,10 @@ def hanlder_db_helpers_get_all():
 
 @app.route('/db/device/<device_id>', methods = ['GET'])
 def hanlder_db_device_get(device_id):
-    res = db_device_select_by_id(device_id)
+    reslist = db_device_select_by_id(device_id)
+    res = reslist[0]
     print(res)
-    return jsonify(res)
+    return jsonify(device_id = res[0],device_name = res[1],os_version = res[2],app_version = res[3])
 
 @app.route('/db/device/<device_id>', methods = ['DELETE'])
 def hanlder_db_device_delete_by_id(device_id):
@@ -287,7 +269,7 @@ def hanlder_db_device_put(device_id):
 def hanlder_db_device_get_all():
     res = db_device_select_all()
     print(res)
-    return jsonify(res)
+    return jsonify(device_id = res[0],device_name = res[1],os_version = res[2],app_version = res[3])
 
 
 @app.route('/db/device', methods = ['POST'])
