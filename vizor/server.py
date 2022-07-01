@@ -49,13 +49,13 @@ def db_user_add(user_name, user_login, user_device):
     slog = "Added " + user_name + " " + user_login + " " + user_device +"to user"
     db_call(s, slog)
 
-    def db_user_update(user_id, user_name, user_login, user_device):
-        s = '''UPDATE user SET user_name= "'''+user_name+'''" , user_login= "'''+user_login+'''" ,''', user_device='''+ user_device + ''' WHERE user_id= '''+user_id
-        print('===================================')
-        print(s)
-        print('===================================')
-        slog = "Updated "+ user_id + " " + user_name + " " + user_login + " " + user_device + "to user"
-        db_call(s, slog)
+def db_user_update(user_id, user_name, user_login, user_device):
+    s = '''UPDATE user SET user_name= "'''+user_name+'''" , user_login= "'''+user_login+'''" , user_device='''+ user_device + ''' WHERE user_id= '''+user_id
+    print('===================================')
+    print(s)
+    print('===================================')
+    slog = "Updated "+ user_id + " " + user_name + " " + user_login + " " + user_device + "to user"
+    db_call(s, slog)
 
 def db_user_select_by_id(users_id):
     s = '''SELECT * FROM user WHERE ROWID =''' +  users_id
@@ -174,8 +174,7 @@ def hanlder_db_user_create():
 
 
 @app.route('/db/user/insert', methods = ['POST'])
-def def hanlder_db_user_insert():
-():
+def hanlder_db_user_insert():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         json = request.json
