@@ -216,9 +216,9 @@ def hanlder_db_user_put(user_id):
 
 
 
-@app.route('/db/user/<users_id>', methods = ['GET'])
-def hanlder_db_user_get_by_id(users_id):
-    res = db_user_select_by_id(users_id)
+@app.route('/db/user/<user_id>', methods = ['GET'])
+def hanlder_db_user_get_by_id(user_id):
+    res = db_user_select_by_id(user_id)
     print(res)
     return jsonify(res)
 
@@ -345,7 +345,6 @@ def hanlder_db_device_put(device_id):
 @app.route('/db/devices', methods = ['GET'])
 def hanlder_db_device_get_all():
     res = db_device_select_all()
-    for i in
     print(res)
     return jsonify(res)
 
