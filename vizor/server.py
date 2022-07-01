@@ -170,11 +170,6 @@ def hello_world():
 def hello(name=None):
     return render_template('hello.html', name=name)
 
-@app.route('/db/user/create')
-def hanlder_db_user_create():
-    db_user_create()
-    return "<p>Created user table</p>"
-
 
 @app.route('/db/user/insert', methods = ['POST'])
 def hanlder_db_user_insert():
@@ -225,16 +220,14 @@ def hanlder_db_user_get_by_id(user_id):
 
 
 
-@app.route('/db/user/getall', methods = ['GET'])
+@app.route('/db/users', methods = ['GET'])
 def hanlder_db_user_get_all():
-    res = db_user_select_all()
-    print(res)
-    return jsonify(res)
-
-@app.route('/db/helper/create')
-def hanlder_db_helper_create():
-    db_helper_create()
-    return "<p>Created helper table</p>", 200
+    resList = db_user_select_all()
+    resDict = []
+    for a in resList:
+        resDict.append({"user_id":a[0], "user_name":a[1], "user_login":a[2], "user_device":a[3]})
+    print(resDict)
+    return jsonify(resDict)
 
 
 @app.route('/db/helper/insert', methods = ['POST'])
@@ -257,11 +250,12 @@ def hanlder_db_helper_insert():
     else:
         return 'Content-Type not supported!', 400
 
-@app.route('/db/helper/get', methods = ['GET'])
-def hanlder_db_helper_get_by_id():
-    res = db_helper_select_by_id(arg_id)
+@app.route('/db/helper/<helper_id>', methods = ['GET'])
+def hanlder_db_helper_get_by_id(helper_id):
+    resList = db_helper_select_by_id(helper_id)
+    res = resList[0]
     print(res)
-    return jsonify(res)
+    return jsonify(helper_id = res[0], helper_name = res[1], helper_login = res[2], user_id = res[3], helper_device = res[4])
 
 @app.route('/db/helper/getbyuser', methods = ['GET'])
 def hanlder_db_helper_get_by_user_id():
@@ -269,11 +263,14 @@ def hanlder_db_helper_get_by_user_id():
     print(res)
     return jsonify(res)
 
-@app.route('/db/helper/getall', methods = ['GET'])
+@app.route('/db/helpers', methods = ['GET'])
 def hanlder_db_helper_get_all():
-    res = db_helper_select_all()
-    print(res)
-    return jsonify(res)
+    resList = db_helper_select_all()
+    resDict = []
+    for a in resList:
+        resDict.append({"helper_id":a[0], "helper_name":a[1], "helper_login":a[2], "user_id":a[3], "helper_device":a[4]})
+    print(resDict)
+    return jsonify(resDict)
 
 @app.route('/db/helper/<helper_id>', methods = ['DELETE'])
 def hanlder_db_helper_delete_by_id(helper_id):
@@ -346,9 +343,12 @@ def hanlder_db_device_put(device_id):
 
 @app.route('/db/devices', methods = ['GET'])
 def hanlder_db_device_get_all():
-    res = db_device_select_all()
-    print(res)
-    return jsonify(res)
+    resList = db_device_select_all()
+    resDict = []
+    for a in resList:
+        resDict.append({"device_id":a[0], "device_name":a[1], "os_version":a[2], "app_version":a[3]})
+    print(resDict)
+    return jsonify(resDict)
 
 
 @app.route('/db/device', methods = ['POST'])
