@@ -218,9 +218,11 @@ def hanlder_db_user_put(user_id):
 
 @app.route('/db/user/<user_id>', methods = ['GET'])
 def hanlder_db_user_get_by_id(user_id):
-    res = db_user_select_by_id(user_id)
+    reslist = db_user_select_by_id(user_id)
+    res = reslist[0]
     print(res)
-    return jsonify(res)
+    return jsonify(user_id = res[0],user_name = res[1],user_login = res[2],user_device = res[3])
+
 
 
 @app.route('/db/user/getall', methods = ['GET'])
