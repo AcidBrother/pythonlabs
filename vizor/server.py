@@ -44,14 +44,22 @@ def db_user_create():
     slog = "created user table"
     db_call(s, slog)
 
-def db_user_add(name, login):
-    s = '''INSERT OR IGNORE INTO user (name, login) VALUES ("'''  + name +'''","''' + login + '''")'''
-    slog = "Added " + name + " " + login + "to user"
+def db_user_add(user_name, user_login, user_device):
+    s = '''INSERT OR IGNORE INTO user (name, login) VALUES ("'''  + user_name +'''","''' + user_login + '''",''' + user_device + ''')'''
+    slog = "Added " + user_name + " " + user_login + " " + user_device +"to user"
     db_call(s, slog)
 
-def db_user_select_by_id(user_id):
-    s = '''SELECT * FROM user WHERE ROWID =''' +  user_id
-    slog = "Selected " + user_id + " user"
+    def db_user_update(user_id, user_name, user_login, user_device):
+        s = '''UPDATE user SET user_name= "'''+user_name+'''" , user_login= "'''+user_login+'''" ,''', user_device='''+ user_device + ''' WHERE user_id= '''+user_id
+        print('===================================')
+        print(s)
+        print('===================================')
+        slog = "Updated "+ user_id + " " + user_name + " " + user_login + " " + user_device + "to user"
+        db_call(s, slog)
+
+def db_user_select_by_id(users_id):
+    s = '''SELECT * FROM user WHERE ROWID =''' +  users_id
+    slog = "Selected " + users_id + " user"
     return db_call_select(s,slog)
 
 def db_user_select_all():
@@ -164,24 +172,51 @@ def hanlder_db_user_create():
     db_user_create()
     return "<p>Created user table</p>"
 
-@app.route('/db/user/insert', methods = ['GET','POST'])
-def hanlder_db_user_insert():
-    req_is_ok = False
-    if (request.method == 'POST'):
-        arg_name  = request.args.get('name')
-        arg_login = request.args.get('login')
-        if not((arg_name is None) or (arg_login is None)):
-            req_is_ok = True
-    if req_is_ok:
-        db_user_add(arg_name, arg_login)
-        resp = jsonify(success=True)
-        return resp
-    else:
-        return "Incorrect request", 400
 
-@app.route('/db/user/get', methods = ['GET'])
+@app.route('/db/user/insert', methods = ['POST'])
+def def hanlder_db_user_insert():
+():
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        req_is_ok = False
+        arg_user_name  = json[('user_name')]
+        arg_user_login = json[('user_login')]
+        arg_user_device = str(json[('user_device')])
+        if not((arg_user_name is None) or (arg_user_login is None) or (arg_user_device is None)):
+            req_is_ok = True
+        if req_is_ok:
+            db_user_add(arg_user_name, arg_user_login, arg_user_device)
+            resp = jsonify(success=True)
+            return resp
+    else:
+        return 'Content-Type not supported!', 400
+
+
+@app.route('/db/user/<user_id>', methods = ['PUT'])
+def hanlder_db_user_put(user_id):
+    content_type = request.headers.get('Content-Type')
+
+    if (content_type == 'application/json'):
+        json = request.json
+        req_is_ok = False
+        arg_user_name  = json[('user_name')]
+        arg_user_login = json[('user_login')]
+        arg_user_device = str(json[('user_device')])
+        if not((arg_user_name is None) or (arg_user_login is None) or (arg_user_device is None)):
+            req_is_ok = True
+        if req_is_ok:
+            db_user_update(arg_user_name, arg_user_login, arg_user_device)
+            resp = jsonify(success=True)
+            return resp
+    else:
+        return 'Content-Type not supported!', 400
+
+
+
+@app.route('/db/user/get/<users_id>', methods = ['GET'])
 def hanlder_db_user_get_by_id():
-    res = db_user_select_by_id(user_id)
+    res = db_user_select_by_id(users_id)
     print(res)
     return jsonify(res)
 
