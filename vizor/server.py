@@ -5,6 +5,7 @@ from flask import render_template
 from flask import jsonify
 from flask import request
 from flask_cors import CORS
+import json
 
 import sqlite3
 
@@ -59,9 +60,9 @@ def db_user_update(user_id, user_name, user_login, user_device):
     slog = "Updated "+ user_id + " " + user_name + " " + user_login + " " + user_device + "to user"
     db_call(s, slog)
 
-def db_user_select_by_id(users_id):
-    s = '''SELECT * FROM user WHERE ROWID =''' +  users_id
-    slog = "Selected " + users_id + " user"
+def db_user_select_by_id(user_id):
+    s = '''SELECT * FROM user WHERE ROWID =''' +  user_id
+    slog = "Selected " + user_id + " user"
     return db_call_select(s,slog)
 
 def db_user_select_all():
@@ -215,8 +216,8 @@ def hanlder_db_user_put(user_id):
 
 
 
-@app.route('/db/user/get/<users_id>', methods = ['GET'])
-def hanlder_db_user_get_by_id():
+@app.route('/db/user/<users_id>', methods = ['GET'])
+def hanlder_db_user_get_by_id(users_id):
     res = db_user_select_by_id(users_id)
     print(res)
     return jsonify(res)
@@ -262,7 +263,7 @@ def hanlder_db_helper_get_by_id():
 
 @app.route('/db/helper/getbyuser', methods = ['GET'])
 def hanlder_db_helper_get_by_user_id():
-    res = db_helper_select_by_user_id(arg_user_id)
+    res = db_helper_select_by_user_id(user_id)
     print(res)
     return jsonify(res)
 
@@ -341,14 +342,12 @@ def hanlder_db_device_put(device_id):
 
 
 
-
 @app.route('/db/devices', methods = ['GET'])
 def hanlder_db_device_get_all():
     res = db_device_select_all()
+    for i in
     print(res)
-    return jsonify(device_id = res[0],device_name = res[1],os_version = res[2],app_version = res[3])
-
-
+    return jsonify(res)
 
 
 @app.route('/db/device', methods = ['POST'])
